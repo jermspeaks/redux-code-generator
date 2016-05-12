@@ -9,7 +9,7 @@ function createRequestFunction(settings) {
  * Action generator for ${settings.name} request action
  * @return {object}         request action
  */
-function ${settings['method_base']}RequestAction() {
+export function ${settings['method_base']}RequestAction() {
   return {
     type: ${settings['constant_name']}_REQUEST
   }
@@ -28,7 +28,7 @@ function createSuccessFunction(settings) {
  * @param  {object} data    API response
  * @return {object}         success action
  */
-function ${settings['method_base']}SuccessAction(data) {
+export function ${settings['method_base']}SuccessAction(data) {
   return {
     type: ${settings['constant_name']}_SUCCESS,
     data: data
@@ -48,7 +48,7 @@ function createFailureFunction(settings) {
  * @param  {string|object} error    error from API
  * @return {object}                 failure action
  */
-function ${settings['method_base']}FailureAction(error) {
+export function ${settings['method_base']}FailureAction(error) {
   return {
     type: ${settings['constant_name']}_FAILURE,
     error: error

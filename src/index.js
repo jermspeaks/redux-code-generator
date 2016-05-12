@@ -2,7 +2,7 @@ var colors = require('colors');
 var figlet = require('figlet');
 var fs = require('fs');
 var yaml = require('js-yaml');
-
+var actionGenerator = require('./action-generator');
 /**
  * Create initial splash page
  */
@@ -48,21 +48,35 @@ function loadYamlFile(filePath) {
 
 function run() {
   createWelcomeSplash();
-  setTimeout(function() {
-    const settings = readYamlFile();
+  const settings = readYamlFile();
 
-    if (settings) {
-      // If there are actions, generate them in single file
-      if (settings.actions) {
-        console.log('Actions found. Lets generate');
-      }
+  if (settings) {
+    // If there are actions, generate them in single file
+    if (settings.actions) {
+      let templateString = '';
 
-      // If there is a reducer, generate them in single file
-      if (settings.reducer) {
-        console.log('Reducer found. Lets generate');
-      }
+      console.log('            ACTIONS             '.green);
+      console.log('------------------------------- '.green);
+
+      settings.actions.forEach(action => {
+        templateString += actionGenerator.createRequestFunction(action);
+        templateString += '\n';
+        templateString += actionGenerator.createSuccessFunction(action);
+        templateString += '\n';
+        templateString += actionGenerator.createFailureFunction(action);
+      });
+      console.log(templateString);
     }
-  }, 0.5);
+
+    // If there is a reducer, generate them in single file
+    if (settings.reducer) {
+      console.log('            REDUCERS            '.green);
+      console.log('------------------------------- '.green);
+      console.log('\n\n');
+      console.log('TBA');
+      console.log('\n\n');
+    }
+  }
 }
 
 run();
