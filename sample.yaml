@@ -1,0 +1,21 @@
+Data Flow Spec:
+  Action:
+    common name: Sample
+    constant name: SAMPLE
+    grouped method: getSampleData
+    fetch api method: fetchSampleData
+    api method: getSample
+  Reducers:
+    name: sample
+    initial state: default
+    # initial state: custom
+    # custom initial state:
+    #   - data
+    #     type: array
+    #   - requesting
+    #     type: false
+    #   - requested
+    #     type: false
+    #   - error
+    #     type: string
+    
