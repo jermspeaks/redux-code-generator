@@ -56,19 +56,6 @@ function ${settings['method_base']}FailureAction(error) {
 }`;
 }
 
-const settings = {
-  name: 'sample one',
-  method_base: 'sampleOne',
-  constant_name: 'SAMPLE_ONE',
-  grouped_method: 'getSampleOneData',
-  fetch_api_method: 'fetchSampleOneData',
-  api_method: 'getSampleOne'
-};
-
-
-const failureFunction = createFailureFunction(settings);
-console.log(failureFunction);
-
 module.exports = {
   createRequestFunction: createRequestFunction,
   createSuccessFunction: createSuccessFunction,

@@ -63,5 +63,4 @@ function sampleOneFailureAction(error) {
       expect(generator.createFailureFunction(settings)).toEqual(generatedString);
     });
   });
-
-})
+});
