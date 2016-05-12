@@ -1,11 +1,17 @@
-var yaml = require('js-yaml');
-var fs = require('fs');
 var colors = require('colors');
+var fs = require('fs');
+var yaml = require('js-yaml');
 
+/**
+ * Create initial splash page
+ */
 function createWelcomeSplash() {
   console.log('Welcome to the Redux Code Generator!');
 }
 
+/**
+ * Read YAML File and exit out if no file passed
+ */
 function readYamlFile() {
   if (process.argv[2]) {
     var yamlFile = process.argv[2];
@@ -18,8 +24,13 @@ function readYamlFile() {
   }
 }
 
+/**
+ * Get YAML document, or throw exception on error
+ * @param  {string} filePath File path for yaml setting file
+ * @return {object}          Yaml file as json or error object
+ */
 function loadYamlFile(filePath) {
-  // Get document, or throw exception on error
+
   try {
     var doc = yaml.safeLoad(fs.readFileSync(filePath, 'utf8'));
     console.log(doc);
