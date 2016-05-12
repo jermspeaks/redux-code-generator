@@ -1,4 +1,5 @@
 var colors = require('colors');
+var figlet = require('figlet');
 var fs = require('fs');
 var yaml = require('js-yaml');
 
@@ -6,7 +7,11 @@ var yaml = require('js-yaml');
  * Create initial splash page
  */
 function createWelcomeSplash() {
-  console.log('Welcome to the Redux Code Generator!');
+  console.log(figlet.textSync('Redux Generator', {
+    horizontalLayout: 'default',
+    verticalLayout: 'default'
+  }).cyan);
+  // console.log('Welcome to the Redux Code Generator!'.cyan);
 }
 
 /**
@@ -14,8 +19,8 @@ function createWelcomeSplash() {
  */
 function readYamlFile() {
   if (process.argv[2]) {
-    var yamlFile = process.argv[2];
-    var settings = loadYamlFile(yamlFile);
+    const yamlFile = process.argv[2];
+    return loadYamlFile(yamlFile);
   } else {
     console.log('\nPlease provide an file'.underline.red);
     console.log('Proper format:');
@@ -32,8 +37,8 @@ function readYamlFile() {
 function loadYamlFile(filePath) {
 
   try {
-    var doc = yaml.safeLoad(fs.readFileSync(filePath, 'utf8'));
-    console.log(doc);
+    let doc = yaml.safeLoad(fs.readFileSync(filePath, 'utf8'));
+    // console.log(doc);
     return doc;
   } catch (e) {
     console.log(e);
@@ -43,7 +48,21 @@ function loadYamlFile(filePath) {
 
 function run() {
   createWelcomeSplash();
-  readYamlFile();
+  setTimeout(function() {
+    const settings = readYamlFile();
+
+    if (settings) {
+      // If there are actions, generate them in single file
+      if (settings.actions) {
+        console.log('Actions found. Lets generate');
+      }
+
+      // If there is a reducer, generate them in single file
+      if (settings.reducer) {
+        console.log('Reducer found. Lets generate');
+      }
+    }
+  }, 0.5);
 }
 
 run();
