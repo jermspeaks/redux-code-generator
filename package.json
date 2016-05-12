@@ -28,5 +28,9 @@
     "fs": "0.0.2",
     "js-yaml": "^3.6.1",
     "pygments": "^0.2.0"
+  },
+  "devDependencies": {
+    "expect": "^1.20.1",
+    "mocha": "^2.4.5"
   }
 }

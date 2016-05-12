@@ -1,14 +1,21 @@
-action:
-  common name: Sample
-  constant name: SAMPLE
-  grouped method: getSampleData
-  fetch api method: fetchSampleData
-  api method: getSample
+actions:
+  - name: sample one
+    method_base: sampleOne
+    constant_name: SAMPLE_ONE
+    grouped_method: getSampleOneData
+    fetch_api_method: fetchSampleOneData
+    api_method: getSampleOne
+  - name: sample two
+    method_base: sampleTwo
+    constant_name: SAMPLE_TWO
+    grouped_method: getSampleTwoData
+    fetch_api_method: fetchSampleTwoData
+    api_method: getSampleTwo
 reducer:
   name: sample
   # initial state: default
-  initial state: custom
-  custom initial state:
+  initial_state: custom
+  custom_initial_state:
     - data:
       type: array
     - requesting:
