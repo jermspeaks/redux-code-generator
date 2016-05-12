@@ -18,7 +18,7 @@ describe('action generators', () => {
  * Action generator for sample one request action
  * @return {object}         request action
  */
-function sampleOneRequestAction() {
+export function sampleOneRequestAction() {
   return {
     type: SAMPLE_ONE_REQUEST
   }
@@ -36,7 +36,7 @@ function sampleOneRequestAction() {
  * @param  {object} data    API response
  * @return {object}         success action
  */
-function sampleOneSuccessAction(data) {
+export function sampleOneSuccessAction(data) {
   return {
     type: SAMPLE_ONE_SUCCESS,
     data: data
@@ -54,7 +54,7 @@ function sampleOneSuccessAction(data) {
  * @param  {string|object} error    error from API
  * @return {object}                 failure action
  */
-function sampleOneFailureAction(error) {
+export function sampleOneFailureAction(error) {
   return {
     type: SAMPLE_ONE_FAILURE,
     error: error
