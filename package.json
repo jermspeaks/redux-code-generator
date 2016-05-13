@@ -4,7 +4,7 @@
   "description": "Code generator for Redux",
   "main": "index.js",
   "scripts": {
-    "test": "mocha tests",
+    "test": "mocha tests --recursive",
     "precommit": "npm test",
     "prepush": "npm test"
   },

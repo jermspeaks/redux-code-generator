@@ -1,5 +1,5 @@
 const expect = require('expect');
-const generator = require('../src/actions/generator');
+const generator = require('../../src/actions/generator');
 
 describe('action generators', () => {
   const settings = {
