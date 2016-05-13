@@ -1,8 +1,9 @@
-var actionGenerator = require('./action-generator');
 var colors = require('colors');
+var createActionFile = require('./actions/index');
 var figlet = require('figlet');
 var fs = require('fs');
-var yaml = require('js-yaml');
+var loadYamlFile = require('./lib/yaml');
+
 /**
  * Create initial splash page
  */
@@ -11,7 +12,6 @@ function createWelcomeSplash() {
     horizontalLayout: 'default',
     verticalLayout: 'default'
   }).gray);
-  // console.log('Welcome to the Redux Code Generator!'.cyan);
 }
 
 /**
@@ -27,44 +27,6 @@ function readYamlFile() {
     console.log('node src/index.js ./sample.yaml\n');
     process.exit(1);
   }
-}
-
-/**
- * Get YAML document, or throw exception on error
- * @param  {string} filePath File path for yaml setting file
- * @return {object}          Yaml file as json or error object
- */
-function loadYamlFile(filePath) {
-
-  try {
-    let doc = yaml.safeLoad(fs.readFileSync(filePath, 'utf8'));
-    // console.log(doc);
-    return doc;
-  } catch (e) {
-    console.log(e);
-    return e;
-  }
-}
-
-function createActionFile(settings, outputFile) {
-  var writeStream = fs.createWriteStream(outputFile, { flags: 'a' });
-
-  function writeGenerator(generator, actionType) {
-    writeStream.write(generator(settings));
-    console.log('   ✓ '.green + `${settings['method_base']}${actionType}`.gray);
-  }
-
-  console.log(' ' + settings['method_base']);
-
-  writeGenerator(actionGenerator.createRequestFunction, 'RequestAction');
-  writeGenerator(actionGenerator.createSuccessFunction, 'SuccessAction');
-  writeGenerator(actionGenerator.createFailureFunction, 'FailureAction');
-
-  writeStream.end();
-}
-
-function createReducerFile(settings, outputFile) {
-  console.log('TBA');
 }
 
 function run() {
