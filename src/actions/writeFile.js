@@ -14,7 +14,7 @@ function createAPIActionFile(settings, outputFile) {
   console.log(' ' + settings['method_base']);
 
   try {
-    var generatedActionFile = generators.createFullActionFile(settings);
+    var generatedActionFile = generators.createFullAPIActionFile(settings);
     writeStream.write(generatedActionFile);
 
     var actionTypes = [
@@ -37,6 +37,19 @@ function createAPIActionFile(settings, outputFile) {
   writeStream.end();
 }
 
+function createCRUDActionFile(settings, outputFile) {
+  console.log('Todo: Create CRUD operations actions'.yellow);
+  return;
+}
+
+function createSingleActionFile(settings, outputFile) {
+  console.log('Todo: Create single action'.yellow);
+  return;
+}
+
+
 module.exports = {
-  createAPIActionFile: createAPIActionFile
+  createAPIActionFile: createAPIActionFile,
+  createCRUDActionFile: createCRUDActionFile,
+  createSingleActionFile: createSingleActionFile
 };

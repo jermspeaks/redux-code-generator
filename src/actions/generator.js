@@ -96,7 +96,12 @@ function ${methodName}(args) {
 }\n`;
 }
 
-function createFullActionFile(settings) {
+/**
+ * Creates full API action file
+ * @param  {object} settings Action settings
+ * @return {string}          file text as string
+ */
+function createFullAPIActionFile(settings) {
   return createRequestFunction(settings) + '\n' +
     createSuccessFunction(settings) + '\n' +
     createFailureFunction(settings) + '\n' +
@@ -104,16 +109,64 @@ function createFullActionFile(settings) {
     createApiFetchFunction(settings) + '\n';
 }
 
+/**
+ * Creates add action function as a string
+ * @param  {object} settings Action settings
+ * @return {string}          Add function generated
+ */
 function createAddActionFunction(settings) {
-  return `
-
-  `;
+  return `/**
+ * Add ${settings.name} action
+ * @param  {object} data  data to add for ${settings.name} state
+ * @return {object}       action for adding ${settings.name}
+ */
+export function add${settings['method_base']}(data) {
+  return {
+    type: ADD_${settings['constant_name']},
+    data: data
+  };
+}\n`;
 }
 
-function createUpdateActionFunction(settings) {}
+/**
+ * Creates update action function as a string
+ * @param  {object} settings Action settings
+ * @return {string}          Update function generated
+ */
+function createUpdateActionFunction(settings) {
+  return `/**
+ * Update ${settings.name} action
+ * @param  {object} data    data to update for ${settings.name} state
+ * @param  {number} index   position where ${settings.name} is in the state tree
+ * @return {object}         action for updating ${settings.name}
+ */
+export function update${settings['method_base']}(data, index) {
+  return {
+    type: UPDATE_${settings['constant_name']},
+    data: data,
+    index: index
+  };
+}\n`;
+}
 
-function createDeleteActionFunction(settings) {}
-
+/**
+ * Creates delete action function as a string
+ * @param  {object} settings Action settings
+ * @return {string}          Delete function generated
+ */
+function createDeleteActionFunction(settings) {
+  return `/**
+ * Delete ${settings.name} action
+ * @param  {number} index   position where ${settings.name} is in the state tree
+ * @return {object}         action for delete ${settings.name}
+ */
+export function delete${settings['method_base']}(data, index) {
+  return {
+    type: DELETE_${settings['constant_name']},
+    index: index
+  };
+}\n`;
+}
 
 module.exports = {
   createRequestFunction: createRequestFunction,
@@ -121,7 +174,7 @@ module.exports = {
   createFailureFunction: createFailureFunction,
   createActionDispatcherFunction: createActionDispatcherFunction,
   createApiFetchFunction: createApiFetchFunction,
-  createFullActionFile: createFullActionFile,
+  createFullAPIActionFile: createFullAPIActionFile,
   createAddActionFunction: createAddActionFunction,
   createUpdateActionFunction: createUpdateActionFunction,
   createDeleteActionFunction: createDeleteActionFunction

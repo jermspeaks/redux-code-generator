@@ -12,13 +12,13 @@ function actionsController(settings) {
         return;
       case 'transaction':
       case 'crud':
-        console.log('Todo: Create CRUD operations actions'.yellow);
+        writeFile.createCRUDActionFile(action, settings.output['action_file']);
         console.log('\n');
         return;
       case 'default':
       case 'single':
       default:
-        console.log('Todo: Create single action'.yellow);
+        writeFile.createSingleActionFile(action, settings.output['action_file']);
         console.log('\n');
         return;
       }
