@@ -189,6 +189,25 @@ function createFullCRUDActionFile(settings) {
     createDeleteActionFunction(settings) + '\n';
 }
 
+/**
+ * Creates single action function as a string
+ * @param  {object} settings Action settings
+ * @return {string}          Single function generated
+ */
+function createSingleAction(settings) {
+  return `/**
+ * Action creator for ${settings.name}
+ * @param  {object} data    Data for ${settings.name} action
+ * @return {object}         action for ${settings.name}
+ */
+export function ${settings.method}(data) {
+  return {
+    type: ${settings.constant},
+    data: data
+  };
+}\n`;
+}
+
 module.exports = {
   createRequestFunction: createRequestFunction,
   createSuccessFunction: createSuccessFunction,
@@ -199,5 +218,6 @@ module.exports = {
   createAddActionFunction: createAddActionFunction,
   createUpdateActionFunction: createUpdateActionFunction,
   createDeleteActionFunction: createDeleteActionFunction,
-  createFullCRUDActionFile: createFullCRUDActionFile
+  createFullCRUDActionFile: createFullCRUDActionFile,
+  createSingleAction: createSingleAction
 };
