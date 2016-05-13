@@ -1,8 +1,8 @@
+var actionGenerator = require('./action-generator');
 var colors = require('colors');
 var figlet = require('figlet');
 var fs = require('fs');
 var yaml = require('js-yaml');
-var actionGenerator = require('./action-generator');
 /**
  * Create initial splash page
  */
@@ -10,7 +10,7 @@ function createWelcomeSplash() {
   console.log(figlet.textSync('Redux Generator', {
     horizontalLayout: 'default',
     verticalLayout: 'default'
-  }).cyan);
+  }).gray);
   // console.log('Welcome to the Redux Code Generator!'.cyan);
 }
 
@@ -46,6 +46,27 @@ function loadYamlFile(filePath) {
   }
 }
 
+function createActionFile(settings, outputFile) {
+  var writeStream = fs.createWriteStream(outputFile, { flags: 'a' });
+
+  function writeGenerator(generator, actionType) {
+    writeStream.write(generator(settings));
+    console.log('   ✓ '.green + `${settings['method_base']}${actionType}`.gray);
+  }
+
+  console.log(' ' + settings['method_base']);
+
+  writeGenerator(actionGenerator.createRequestFunction, 'RequestAction');
+  writeGenerator(actionGenerator.createSuccessFunction, 'SuccessAction');
+  writeGenerator(actionGenerator.createFailureFunction, 'FailureAction');
+
+  writeStream.end();
+}
+
+function createReducerFile(settings, outputFile) {
+  console.log('TBA');
+}
+
 function run() {
   createWelcomeSplash();
   const settings = readYamlFile();
@@ -53,29 +74,28 @@ function run() {
   if (settings) {
     // If there are actions, generate them in single file
     if (settings.actions) {
-      let templateString = '';
-
-      console.log('            ACTIONS             '.green);
-      console.log('------------------------------- '.green);
-
+      console.log('ACTIONS GENERATED'.green);
       settings.actions.forEach(action => {
-        templateString += actionGenerator.createRequestFunction(action);
-        templateString += '\n';
-        templateString += actionGenerator.createSuccessFunction(action);
-        templateString += '\n';
-        templateString += actionGenerator.createFailureFunction(action);
+        try {
+          createActionFile(action, settings.output['action_file']);
+        } catch (e) {
+          console.log(e.toString().red);
+        }
       });
-      console.log(templateString);
+      // console.log(templateString);
     }
 
     // If there is a reducer, generate them in single file
-    if (settings.reducer) {
-      console.log('            REDUCERS            '.green);
-      console.log('------------------------------- '.green);
-      console.log('\n\n');
-      console.log('TBA');
-      console.log('\n\n');
-    }
+    // if (settings.reducer) {
+    //   try {
+    //     console.log('REDUCER GENERATED'.green);
+    //     console.log('\n\n');
+    //     console.log('TBA');
+    //     console.log('\n\n');
+    //   } catch (e) {
+    //     console.log(e.toString().red);
+    //   }
+    // }
   }
 }
 
