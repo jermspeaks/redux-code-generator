@@ -63,4 +63,40 @@ export function sampleOneFailureAction(error) {
       expect(generator.createFailureFunction(settings)).toEqual(generatedString);
     });
   });
+
+  describe('createActionDispatcherFunction', () => {
+    it('generates a proper dispatcher function', () => {
+      var generatedString = `
+/**
+ * Action dispatcher for sample one action
+ * @param  {object} args  settings for API
+ * @return {object}       Promise from API
+ */
+export function getSampleOneData(args) {
+  return (dispatch) => {
+    dispatch(sampleOneRequestAction());
+
+    return fetchSampleOneData(args)
+      .then((res) => dispatch(sampleOneSuccessAction(res)))
+      .catch((err) => dispatch(sampleOneFailureAction(err)));
+  };
+}`;
+      expect(generator.createActionDispatcherFunction(settings)).toEqual(generatedString);
+    });
+  });
+
+  describe('createApiFetchFunction', () => {
+    it('generates a proper fetch function', () => {
+      var generatedString = `
+/**
+ * Fetch API for sample one action
+ * @param  {object} args  settings for API
+ * @return {object}       Promise from API
+ */
+function fetchSampleOneData(args) {
+  return api.actions.getSampleOne.request();
+}`;
+      expect(generator.createApiFetchFunction(settings)).toEqual(generatedString);
+    });
+  });
 });
