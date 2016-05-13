@@ -82,6 +82,11 @@ export function ${methodName}(args) {
 }`;
 }
 
+/**
+ * Create fetch function for Redux API methods
+ * @param  {object} settings Action settings
+ * @return {string}          Fetch function generated
+ */
 function createApiFetchFunction(settings) {
   const methodName = settings['fetch_api_method'] ? settings['fetch_api_method'] : `fetch${settings['method_base']}`;
 
@@ -94,7 +99,14 @@ function createApiFetchFunction(settings) {
 function ${methodName}(args) {
   return api.actions.${settings['api_method']}.request();
 }`;
+}
 
+function createFullActionFile(settings) {
+  return createRequestFunction(settings) + '\n' +
+    createSuccessFunction(settings) + '\n' +
+    createFailureFunction(settings) + '\n' +
+    createActionDispatcherFunction(settings) + '\n' +
+    createApiFetchFunction(settings) + '\n';
 }
 
 module.exports = {
@@ -102,5 +114,6 @@ module.exports = {
   createSuccessFunction: createSuccessFunction,
   createFailureFunction: createFailureFunction,
   createActionDispatcherFunction: createActionDispatcherFunction,
-  createApiFetchFunction: createApiFetchFunction
+  createApiFetchFunction: createApiFetchFunction,
+  createFullActionFile: createFullActionFile
 };
