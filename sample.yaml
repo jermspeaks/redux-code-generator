@@ -3,17 +3,20 @@ output:
   reducer_file: ./sample_reducer.js
 actions:
   - name: sample one
+    type: api
     method_base: sampleOne
     constant_name: SAMPLE_ONE
     grouped_method: getSampleOneData
     fetch_api_method: fetchSampleOneData
     api_method: getSampleOne
   - name: sample two
+    type: transaction
     method_base: sampleTwo
     constant_name: SAMPLE_TWO
-    grouped_method: getSampleTwoData
-    fetch_api_method: fetchSampleTwoData
-    api_method: getSampleTwo
+  - name: sample three
+    type: single
+    method: sampleThreeAction
+    constant: SAMPLE_THREE_ACTION
 reducer:
   name: sample
   # initial state: default

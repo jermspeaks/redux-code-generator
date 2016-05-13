@@ -1,5 +1,5 @@
 var colors = require('colors');
-var createActionFile = require('./actions/index');
+var actionsController = require('./actions/index');
 var figlet = require('figlet');
 var fs = require('fs');
 var loadYamlFile = require('./lib/yaml');
@@ -36,15 +36,7 @@ function run() {
   if (settings) {
     // If there are actions, generate them in single file
     if (settings.actions) {
-      console.log('ACTIONS GENERATED'.green);
-      settings.actions.forEach(action => {
-        try {
-          createActionFile(action, settings.output['action_file']);
-        } catch (e) {
-          console.log(e.toString().red);
-        }
-      });
-      // console.log(templateString);
+      actionsController(settings);      
     }
 
     // If there is a reducer, generate them in single file

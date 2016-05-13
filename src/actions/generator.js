@@ -4,8 +4,7 @@
  * @return {string}          Request function generated
  */
 function createRequestFunction(settings) {
-  return `
-/**
+  return `/**
  * Action generator for ${settings.name} request action
  * @return {object}         request action
  */
@@ -13,7 +12,7 @@ export function ${settings['method_base']}RequestAction() {
   return {
     type: ${settings['constant_name']}_REQUEST
   }
-}`;
+}\n`;
 }
 
 /**
@@ -22,8 +21,7 @@ export function ${settings['method_base']}RequestAction() {
  * @return {string}          Success function generated
  */
 function createSuccessFunction(settings) {
-  return `
-/**
+  return `/**
  * Action generator for ${settings.name} success action
  * @param  {object} data    API response
  * @return {object}         success action
@@ -33,7 +31,7 @@ export function ${settings['method_base']}SuccessAction(data) {
     type: ${settings['constant_name']}_SUCCESS,
     data: data
   }
-}`;
+}\n`;
 }
 
 /**
@@ -42,8 +40,7 @@ export function ${settings['method_base']}SuccessAction(data) {
  * @return {string}          Failure function generated
  */
 function createFailureFunction(settings) {
-  return `
-/**
+  return `/**
  * Action generator for ${settings.name} failure action
  * @param  {string|object} error    error from API
  * @return {object}                 failure action
@@ -53,7 +50,7 @@ export function ${settings['method_base']}FailureAction(error) {
     type: ${settings['constant_name']}_FAILURE,
     error: error
   }
-}`;
+}\n`;
 }
 
 /**
@@ -65,8 +62,7 @@ function createActionDispatcherFunction(settings) {
   const methodName = settings['grouped_method'] ? settings['grouped_method'] : `get${settings['method_base']}`;
   const fetchMethodName = settings['fetch_api_method'] ? settings['fetch_api_method'] : `fetch${settings['method_base']}`;
 
-  return `
-/**
+  return `/**
  * Action dispatcher for ${settings.name} action
  * @param  {object} args  settings for API
  * @return {object}       Promise from API
@@ -79,7 +75,7 @@ export function ${methodName}(args) {
       .then((res) => dispatch(${settings['method_base']}SuccessAction(res)))
       .catch((err) => dispatch(${settings['method_base']}FailureAction(err)));
   };
-}`;
+}\n`;
 }
 
 /**
@@ -90,15 +86,14 @@ export function ${methodName}(args) {
 function createApiFetchFunction(settings) {
   const methodName = settings['fetch_api_method'] ? settings['fetch_api_method'] : `fetch${settings['method_base']}`;
 
-  return `
-/**
+  return `/**
  * Fetch API for ${settings.name} action
  * @param  {object} args  settings for API
  * @return {object}       Promise from API
  */
 function ${methodName}(args) {
   return api.actions.${settings['api_method']}.request();
-}`;
+}\n`;
 }
 
 function createFullActionFile(settings) {
@@ -109,11 +104,25 @@ function createFullActionFile(settings) {
     createApiFetchFunction(settings) + '\n';
 }
 
+function createAddActionFunction(settings) {
+  return `
+
+  `;
+}
+
+function createUpdateActionFunction(settings) {}
+
+function createDeleteActionFunction(settings) {}
+
+
 module.exports = {
   createRequestFunction: createRequestFunction,
   createSuccessFunction: createSuccessFunction,
   createFailureFunction: createFailureFunction,
   createActionDispatcherFunction: createActionDispatcherFunction,
   createApiFetchFunction: createApiFetchFunction,
-  createFullActionFile: createFullActionFile
+  createFullActionFile: createFullActionFile,
+  createAddActionFunction: createAddActionFunction,
+  createUpdateActionFunction: createUpdateActionFunction,
+  createDeleteActionFunction: createDeleteActionFunction
 };

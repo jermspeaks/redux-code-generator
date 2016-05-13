@@ -1,39 +1,32 @@
 var fs = require('fs');
-var generators = require('./generator');
+var writeFile = require('./writeFile');
 
-/**
- * Create or append an action file with API actions
- * @param  {[type]} settings   [description]
- * @param  {[type]} outputFile [description]
- * @return {[type]}            [description]
- */
-function createAPIActionFile(settings, outputFile) {
-  var writeStream = fs.createWriteStream(outputFile, { flags: 'a' });
+function actionsController(settings) {
+  console.log('ACTIONS GENERATED'.green);
 
-  console.log(' ' + settings['method_base']);
+  settings.actions.forEach(action => {
+    try {
+      switch (action.type) {
+      case 'api':
+        writeFile.createAPIActionFile(action, settings.output['action_file']);
+        return;
+      case 'transaction':
+      case 'crud':
+        console.log('Todo: Create CRUD operations actions'.yellow);
+        console.log('\n');
+        return;
+      case 'default':
+      case 'single':
+      default:
+        console.log('Todo: Create single action'.yellow);
+        console.log('\n');
+        return;
+      }
+    } catch (e) {
+      console.log(e.toString().red);
+    }
+  });
 
-  try {
-    var generatedActionFile = generators.createFullActionFile(settings);
-    writeStream.write(generatedActionFile);
-
-    var actionTypes = [
-      'RequestAction',
-      'SuccessAction',
-      'FailureAction',
-      'DispatcherFunction',
-      'FetchFunction'
-    ];
-
-    actionTypes.forEach(actionType => {
-      console.log('   ✓ '.green + `${settings['method_base']}${actionType}`.gray);
-    });
-
-    console.log('\n');
-  } catch (e) {
-    console.log('error', e);
-  }
-
-  writeStream.end();
 }
 
-module.exports = createAPIActionFile;
+module.exports = actionsController;
