@@ -3,7 +3,7 @@ var actionsController = require('./actions/index');
 var figlet = require('figlet');
 var fs = require('fs');
 var loadYamlFile = require('./lib/yaml');
-
+var validator = require('./lib/validator');
 /**
  * Create initial splash page
  */
@@ -14,29 +14,13 @@ function createWelcomeSplash() {
   }).gray);
 }
 
-/**
- * Read YAML File and exit out if no file passed
- */
-function readYamlFile() {
-  if (process.argv[2]) {
-    const yamlFile = process.argv[2];
-    return loadYamlFile(yamlFile);
-  } else {
-    console.log('\nPlease provide an file'.underline.red);
-    console.log('Proper format:');
-    console.log('node src/index.js ./sample.yaml\n');
-    process.exit(1);
-  }
-}
-
-function run() {
-  createWelcomeSplash();
-  const settings = readYamlFile();
-
+function settingsController(settings) {
   if (settings) {
+    // Validate settings object
+
     // If there are actions, generate them in single file
     if (settings.actions) {
-      actionsController(settings);      
+      actionsController(settings);
     }
 
     // If there is a reducer, generate them in single file
@@ -50,6 +34,26 @@ function run() {
     //     console.log(e.toString().red);
     //   }
     // }
+  }
+}
+
+/**
+ * App run function
+ */
+function run() {
+  createWelcomeSplash();
+
+  // Yaml file found. Load file and load it
+  if (process.argv[2]) {
+    const yamlFile = process.argv[2];
+    const settings = loadYamlFile(yamlFile);
+    settingsController(settings);
+  } else {
+    // Yaml file not found. Exit application
+    console.log('\nPlease provide an file'.underline.red);
+    console.log('Proper format:');
+    console.log('node src/index.js ./sample.yaml\n');
+    process.exit(1);
   }
 }
 
