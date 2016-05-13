@@ -109,18 +109,24 @@ function createFullAPIActionFile(settings) {
     createApiFetchFunction(settings) + '\n';
 }
 
+function createMiddleMethodBase(base) {
+  return base.slice(0, 1).toUpperCase() + base.slice(1);
+}
+
 /**
  * Creates add action function as a string
  * @param  {object} settings Action settings
  * @return {string}          Add function generated
  */
 function createAddActionFunction(settings) {
+  const methodBase = createMiddleMethodBase(settings['method_base']);
+
   return `/**
  * Add ${settings.name} action
  * @param  {object} data  data to add for ${settings.name} state
  * @return {object}       action for adding ${settings.name}
  */
-export function add${settings['method_base']}(data) {
+export function add${methodBase}(data) {
   return {
     type: ADD_${settings['constant_name']},
     data: data
@@ -134,13 +140,15 @@ export function add${settings['method_base']}(data) {
  * @return {string}          Update function generated
  */
 function createUpdateActionFunction(settings) {
+  const methodBase = createMiddleMethodBase(settings['method_base']);
+
   return `/**
  * Update ${settings.name} action
  * @param  {object} data    data to update for ${settings.name} state
  * @param  {number} index   position where ${settings.name} is in the state tree
  * @return {object}         action for updating ${settings.name}
  */
-export function update${settings['method_base']}(data, index) {
+export function update${methodBase}(data, index) {
   return {
     type: UPDATE_${settings['constant_name']},
     data: data,
@@ -155,17 +163,30 @@ export function update${settings['method_base']}(data, index) {
  * @return {string}          Delete function generated
  */
 function createDeleteActionFunction(settings) {
+  const methodBase = createMiddleMethodBase(settings['method_base']);
+
   return `/**
  * Delete ${settings.name} action
  * @param  {number} index   position where ${settings.name} is in the state tree
  * @return {object}         action for delete ${settings.name}
  */
-export function delete${settings['method_base']}(data, index) {
+export function delete${methodBase}(data, index) {
   return {
     type: DELETE_${settings['constant_name']},
     index: index
   };
 }\n`;
+}
+
+/**
+ * Creates full CRUD action file
+ * @param  {object} settings Action settings
+ * @return {string}          file text as string
+ */
+function createFullCRUDActionFile(settings) {
+  return createAddActionFunction(settings) + '\n' +
+    createUpdateActionFunction(settings) + '\n' +
+    createDeleteActionFunction(settings) + '\n';
 }
 
 module.exports = {
@@ -177,5 +198,6 @@ module.exports = {
   createFullAPIActionFile: createFullAPIActionFile,
   createAddActionFunction: createAddActionFunction,
   createUpdateActionFunction: createUpdateActionFunction,
-  createDeleteActionFunction: createDeleteActionFunction
+  createDeleteActionFunction: createDeleteActionFunction,
+  createFullCRUDActionFile: createFullCRUDActionFile
 };
