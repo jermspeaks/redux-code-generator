@@ -18,30 +18,38 @@ function createWelcomeSplash() {
 }
 
 /**
+ * Modify settings object for controllers
+ * @param  {object} settings YAML settings as JSON
+ * @return                   modified settings for controllers
+ */
+function modifySettings(settings) {
+  // Create additional items for settings
+  const constants = createConstants(settings);
+
+  return Object.assign({}, settings, {
+    constants: constants
+  });
+}
+
+/**
  * Logic for handling settings object
  * @param  {object} settings YAML settings as JSON
  */
 function settingsController(settings) {
   // Validate settings object
-  const validSettings = validator(settings);
+  validator(settings);
 
-  if (validSettings) {
-    // Create additional items for settings
-    var constants = createConstants(settings);
+  // Modify settings for controllers
+  const modifiedSettings = modifySettings(settings);
 
-    var modifiedSettings = Object.assign({}, settings, {
-      constants: constants
-    });
+  // Write actions
+  actionsController(modifiedSettings);
 
-    // Write actions
-    actionsController(modifiedSettings);
+  // Write reducers
+  // reducerController(modifiedSettings);
 
-    // Write reducers
-    // reducerController(modifiedSettings);
-
-    // Write Constants
-    writeConstants(modifiedSettings);
-  }
+  // Write Constants
+  writeConstants(modifiedSettings);
 }
 
 /**

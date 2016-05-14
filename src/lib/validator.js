@@ -8,8 +8,15 @@ function validateSettings(settings) {
   const validSettingsType = () => typeof settings === 'object';
   const validSettingsKeys = () => !!settings.actions && !!settings.reducer;
 
-  return validSettings() && validSettingsType() && validSettingsKeys();
+  validSettings() ? null : exitProcess('YAML settings not valid');
+  validSettingsType() ? null : exitProcess('YAML settings not properly converted to an object');
+  validSettingsKeys() ? null : exitProcess('Forgot Actions or Reducer key');
 };
 
+function exitProcess(error) {
+  let errorMessage = `Invalid YAML Format: ${error}`;
+  console.log(errorMessage.red);
+  process.exit(0);
+}
 
 module.exports = validateSettings;

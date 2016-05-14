@@ -10,7 +10,7 @@ function createRequestFunction(settings) {
  */
 export function ${settings['method_base']}RequestAction() {
   return {
-    type: ${settings['constant_name']}_REQUEST
+    type: types.${settings['constant_name']}_REQUEST
   }
 }\n`;
 }
@@ -28,7 +28,7 @@ function createSuccessFunction(settings) {
  */
 export function ${settings['method_base']}SuccessAction(data) {
   return {
-    type: ${settings['constant_name']}_SUCCESS,
+    type: types.${settings['constant_name']}_SUCCESS,
     data: data
   }
 }\n`;
@@ -47,7 +47,7 @@ function createFailureFunction(settings) {
  */
 export function ${settings['method_base']}FailureAction(error) {
   return {
-    type: ${settings['constant_name']}_FAILURE,
+    type: types.${settings['constant_name']}_FAILURE,
     error: error
   }
 }\n`;
@@ -128,7 +128,7 @@ function createAddActionFunction(settings) {
  */
 export function add${methodBase}(data) {
   return {
-    type: ADD_${settings['constant_name']},
+    type: types.ADD_${settings['constant_name']},
     data: data
   };
 }\n`;
@@ -150,7 +150,7 @@ function createUpdateActionFunction(settings) {
  */
 export function update${methodBase}(data, index) {
   return {
-    type: UPDATE_${settings['constant_name']},
+    type: types.UPDATE_${settings['constant_name']},
     data: data,
     index: index
   };
@@ -172,7 +172,7 @@ function createDeleteActionFunction(settings) {
  */
 export function delete${methodBase}(data, index) {
   return {
-    type: DELETE_${settings['constant_name']},
+    type: types.DELETE_${settings['constant_name']},
     index: index
   };
 }\n`;
@@ -202,7 +202,7 @@ function createSingleAction(settings) {
  */
 export function ${settings.method}(data) {
   return {
-    type: ${settings.constant},
+    type: types.${settings.constant},
     data: data
   };
 }\n`;
