@@ -13,10 +13,12 @@ actions:
     api_method: getSampleOne
   - name: sample two
     type: transaction
+    reducer: sampleTwo
     method_base: sampleTwo
     constant_name: SAMPLE_TWO
   - name: sample three
     type: single
+    reducer: sampleThree
     method: sampleThreeAction
     constant: SAMPLE_THREE_ACTION
 reducer:
