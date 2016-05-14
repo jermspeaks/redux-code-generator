@@ -1,6 +1,7 @@
 output:
   action_file: ./sample_actions.js
   reducer_file: ./sample_reducer.js
+  constants_file: ./sample_constants.js
 actions:
   - name: sample one
     type: api

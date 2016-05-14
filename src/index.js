@@ -1,9 +1,11 @@
 var colors = require('colors');
 var actionsController = require('./actions/index');
+var createConstants = require('./lib/constantsCreator');
 var figlet = require('figlet');
 var fs = require('fs');
 var loadYamlFile = require('./lib/yaml');
 var validator = require('./lib/validator');
+var writeConstants = require('./lib/writeConstants');
 
 /**
  * Create initial splash page
@@ -24,9 +26,21 @@ function settingsController(settings) {
   const validSettings = validator(settings);
 
   if (validSettings) {
-    actionsController(settings);
-    // reducerController(settings);
-    // constantsController(settings);
+    // Create additional items for settings
+    var constants = createConstants(settings);
+
+    var modifiedSettings = Object.assign({}, settings, {
+      constants: constants
+    });
+
+    // Write actions
+    actionsController(modifiedSettings);
+
+    // Write reducers
+    // reducerController(modifiedSettings);
+
+    // Write Constants
+    writeConstants(modifiedSettings);
   }
 }
 
