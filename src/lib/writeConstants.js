@@ -5,7 +5,7 @@ function writeConstants(settings) {
   let textOutput = '';
 
   settings.constants.forEach(constant => {
-    textOutput += `export const ${constant} = ${constant};\n`;
+    textOutput += `export const ${constant} = '${constant}';\n`;
   });
 
   let writeStream = fs.createWriteStream(settings.output['constants_file'], { flags: 'a' });

@@ -4,6 +4,7 @@
   "description": "Code generator for Redux",
   "main": "index.js",
   "scripts": {
+    "start": "node src/index.js ./sample.yaml",
     "test": "mocha tests --recursive",
     "precommit": "npm test",
     "prepush": "npm test"
