@@ -1,30 +1,54 @@
 const expect = require('expect');
-const validator = require('../../src/lib/validator');
+const validations = require('../../src/lib/validations');
 
-describe('settings validation', () => {
-  var nonObjectSettings = [
-    'string',
-    3,
+describe('YAML settings validations', () => {
+  const falsyValues = [
     false,
     null,
-    undefined
+    undefined,
+    ''
   ];
 
-  nonObjectSettings.forEach(setting => {
-    it(`validates settings is an object for ${setting ? setting.toString() : setting}`, () => {
-      expect(validator(setting)).toBe(false);
+  falsyValues.forEach(setting => {
+    it(`validates settings as a truthy value with ${setting}`, () => {
+      expect(validations.validSettings(setting)).toBe(false);
     });
   });
 
-  it('validates settings for keys: actions and reducer', () => {
-    const actionsWithoutReducer = {
-      actions: null
-    };
-    const reducerWithoutActions = {
-      reducer: null
-    };
+  const nonObjectSettings = [
+    'string',
+    3
+  ];
 
-    expect(validator(actionsWithoutReducer)).toBe(false);
-    expect(validator(reducerWithoutActions)).toBe(false);
+  nonObjectSettings.forEach(setting => {
+    it(`validates settings is an object for ${setting.toString()}`, () => {
+      expect(validations.validSettingsType(setting)).toBe(false);
+    });
+  });
+
+  const mainKeys = [{
+    name: 'reducer',
+    settings: {
+      actions: {},
+      output: {}
+    }
+  }, {
+    name: 'output',
+    settings: {
+      actions: {},
+      reducer: {}
+    }
+  }, {
+    name: 'actions',
+    settings: {
+      output: {},
+      reducer: {}
+    }
+  }];
+
+  mainKeys.forEach(mainKey => {
+    it(`validates settings for missing ${mainKey.name} key`, () => {
+      expect(validations.validSettingsKeys(mainKey.settings)).toBe(false);
+    });
   });
 });
