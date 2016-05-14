@@ -4,6 +4,7 @@ var figlet = require('figlet');
 var fs = require('fs');
 var loadYamlFile = require('./lib/yaml');
 var validator = require('./lib/validator');
+
 /**
  * Create initial splash page
  */
@@ -14,26 +15,18 @@ function createWelcomeSplash() {
   }).gray);
 }
 
+/**
+ * Logic for handling settings object
+ * @param  {object} settings YAML settings as JSON
+ */
 function settingsController(settings) {
-  if (settings) {
-    // Validate settings object
+  // Validate settings object
+  const validSettings = validator(settings);
 
-    // If there are actions, generate them in single file
-    if (settings.actions) {
-      actionsController(settings);
-    }
-
-    // If there is a reducer, generate them in single file
-    // if (settings.reducer) {
-    //   try {
-    //     console.log('REDUCER GENERATED'.green);
-    //     console.log('\n\n');
-    //     console.log('TBA');
-    //     console.log('\n\n');
-    //   } catch (e) {
-    //     console.log(e.toString().red);
-    //   }
-    // }
+  if (validSettings) {
+    actionsController(settings);
+    // reducerController(settings);
+    // constantsController(settings);
   }
 }
 

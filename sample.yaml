@@ -4,6 +4,7 @@ output:
 actions:
   - name: sample one
     type: api
+    reducer: sampleOne
     method_base: sampleOne
     constant_name: SAMPLE_ONE
     grouped_method: getSampleOneData
@@ -18,15 +19,12 @@ actions:
     method: sampleThreeAction
     constant: SAMPLE_THREE_ACTION
 reducer:
-  name: sample
-  # initial state: default
-  initial_state: custom
-  custom_initial_state:
-    - data:
-      type: array
-    - requesting:
-      type: false
-    - requested:
-      type: false
-    - error:
-      type: string
+  - name: sampleOne
+    state_type: api
+  - name: sampleTwo
+    state_type: transaction
+  - name: sampleThree
+    state_type: custom
+    custom_state:
+      - data:
+        type: array

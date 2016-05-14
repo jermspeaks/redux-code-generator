@@ -26,7 +26,6 @@ function actionsController(settings) {
       console.log(e.toString().red);
     }
   });
-
 }
 
 module.exports = actionsController;
