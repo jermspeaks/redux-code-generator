@@ -1,3 +1,5 @@
+#! /usr/bin/env node
+
 var colors = require('colors');
 var actionsController = require('./actions/index');
 var figlet = require('figlet');

@@ -2,7 +2,6 @@
   "name": "redux-code-generator",
   "version": "0.1.0",
   "description": "Code generator for Redux",
-  "main": "index.js",
   "scripts": {
     "test": "mocha tests --recursive",
     "precommit": "npm test",
@@ -21,6 +20,10 @@
   ],
   "author": "Jeremy Wong (jermspeaks@gmail.com)",
   "license": "MIT",
+  "preferGlobal": true,
+  "bin": {
+    "reduxgen": "src/index.js"
+  },
   "bugs": {
     "url": "https://github.com/jermspeaks/redux-code-generator/issues"
   },
