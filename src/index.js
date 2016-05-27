@@ -69,7 +69,7 @@ function run() {
     // Yaml file not found. Exit application
     console.log('\nPlease provide an file'.underline.red);
     console.log('Proper format:');
-    console.log('node src/index.js ./sample.yaml\n');
+    console.log('reduxgen ./sample.yaml\n');
     process.exit(1);
   }
 }
