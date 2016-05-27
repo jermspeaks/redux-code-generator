@@ -2,7 +2,7 @@ var fs = require('fs');
 var writeFile = require('./writeFile');
 
 function actionsController(settings) {
-  console.log('ACTIONS GENERATED'.green);
+  console.log('Writing Actions'.green);
 
   settings.actions.forEach(action => {
     try {
@@ -13,13 +13,11 @@ function actionsController(settings) {
       case 'transaction':
       case 'crud':
         writeFile.createCRUDActionFile(action, settings.output['action_file']);
-        console.log('\n');
         return;
       case 'default':
       case 'single':
       default:
         writeFile.createSingleActionFile(action, settings.output['action_file']);
-        console.log('\n');
         return;
       }
     } catch (e) {

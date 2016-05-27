@@ -2,10 +2,12 @@
 
 var colors = require('colors');
 var actionsController = require('./actions/index');
+var createConstants = require('./lib/constantsCreator');
 var figlet = require('figlet');
 var fs = require('fs');
 var loadYamlFile = require('./lib/yaml');
 var validator = require('./lib/validator');
+var writeConstants = require('./lib/writeConstants');
 
 /**
  * Create initial splash page
@@ -18,18 +20,38 @@ function createWelcomeSplash() {
 }
 
 /**
+ * Modify settings object for controllers
+ * @param  {object} settings YAML settings as JSON
+ * @return                   modified settings for controllers
+ */
+function modifySettings(settings) {
+  // Create additional items for settings
+  const constants = createConstants(settings);
+
+  return Object.assign({}, settings, {
+    constants: constants
+  });
+}
+
+/**
  * Logic for handling settings object
  * @param  {object} settings YAML settings as JSON
  */
 function settingsController(settings) {
   // Validate settings object
-  const validSettings = validator(settings);
+  validator(settings);
 
-  if (validSettings) {
-    actionsController(settings);
-    // reducerController(settings);
-    // constantsController(settings);
-  }
+  // Modify settings for controllers
+  const modifiedSettings = modifySettings(settings);
+
+  // Write actions
+  actionsController(modifiedSettings);
+
+  // Write reducers
+  // reducerController(modifiedSettings);
+
+  // Write Constants
+  writeConstants(modifiedSettings);
 }
 
 /**

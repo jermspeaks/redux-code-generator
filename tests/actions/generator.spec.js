@@ -20,7 +20,7 @@ describe('action generators', () => {
  */
 export function sampleOneRequestAction() {
   return {
-    type: SAMPLE_ONE_REQUEST
+    type: types.SAMPLE_ONE_REQUEST
   }
 }\n`;
         expect(generator.createRequestFunction(settings)).toEqual(generatedString);
@@ -37,7 +37,7 @@ export function sampleOneRequestAction() {
  */
 export function sampleOneSuccessAction(data) {
   return {
-    type: SAMPLE_ONE_SUCCESS,
+    type: types.SAMPLE_ONE_SUCCESS,
     data: data
   }
 }\n`;
@@ -54,7 +54,7 @@ export function sampleOneSuccessAction(data) {
  */
 export function sampleOneFailureAction(error) {
   return {
-    type: SAMPLE_ONE_FAILURE,
+    type: types.SAMPLE_ONE_FAILURE,
     error: error
   }
 }\n`;
@@ -114,7 +114,7 @@ function fetchSampleOneData(args) {
  */
 export function addSampleTwo(data) {
   return {
-    type: ADD_SAMPLE_TWO,
+    type: types.ADD_SAMPLE_TWO,
     data: data
   };
 }\n`;
@@ -132,7 +132,7 @@ export function addSampleTwo(data) {
  */
 export function updateSampleTwo(data, index) {
   return {
-    type: UPDATE_SAMPLE_TWO,
+    type: types.UPDATE_SAMPLE_TWO,
     data: data,
     index: index
   };
@@ -150,7 +150,7 @@ export function updateSampleTwo(data, index) {
  */
 export function deleteSampleTwo(data, index) {
   return {
-    type: DELETE_SAMPLE_TWO,
+    type: types.DELETE_SAMPLE_TWO,
     index: index
   };
 }\n`;
@@ -175,7 +175,7 @@ export function deleteSampleTwo(data, index) {
  */
 export function sampleThreeAction(data) {
   return {
-    type: SAMPLE_THREE_ACTION,
+    type: types.SAMPLE_THREE_ACTION,
     data: data
   };
 }\n`;

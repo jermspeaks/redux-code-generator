@@ -44,7 +44,7 @@ function createFileFunctionTemplate(generator, actionTypes, options = {}) {
         console.log(' ' + settings.method);
       }
       console.log('   Something went wrong trying to create these actions'.red);
-    })
+    });
   }
 }
 
