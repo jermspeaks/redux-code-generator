@@ -21,7 +21,7 @@ describe('action generators', () => {
 export function sampleOneRequestAction() {
   return {
     type: types.SAMPLE_ONE_REQUEST
-  }
+  };
 }\n`;
         expect(generator.createRequestFunction(settings)).toEqual(generatedString);
       });
@@ -39,7 +39,7 @@ export function sampleOneSuccessAction(data) {
   return {
     type: types.SAMPLE_ONE_SUCCESS,
     data: data
-  }
+  };
 }\n`;
         expect(generator.createSuccessFunction(settings)).toEqual(generatedString);
       });
@@ -56,7 +56,7 @@ export function sampleOneFailureAction(error) {
   return {
     type: types.SAMPLE_ONE_FAILURE,
     error: error
-  }
+  };
 }\n`;
         expect(generator.createFailureFunction(settings)).toEqual(generatedString);
       });

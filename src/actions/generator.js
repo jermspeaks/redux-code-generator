@@ -11,7 +11,7 @@ function createRequestFunction(settings) {
 export function ${settings['method_base']}RequestAction() {
   return {
     type: types.${settings['constant_name']}_REQUEST
-  }
+  };
 }\n`;
 }
 
@@ -30,7 +30,7 @@ export function ${settings['method_base']}SuccessAction(data) {
   return {
     type: types.${settings['constant_name']}_SUCCESS,
     data: data
-  }
+  };
 }\n`;
 }
 
@@ -49,7 +49,7 @@ export function ${settings['method_base']}FailureAction(error) {
   return {
     type: types.${settings['constant_name']}_FAILURE,
     error: error
-  }
+  };
 }\n`;
 }
 
