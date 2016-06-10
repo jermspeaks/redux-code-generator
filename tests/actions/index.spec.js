@@ -1,5 +1,5 @@
-const expect = require('expect');
-const generator = require('../../src/actions/index');
+// const expect = require('expect');
+// const generator = require('../../src/actions/index');
 
 describe('actions to file', () => {
   describe('createAPIActionFile', () => {

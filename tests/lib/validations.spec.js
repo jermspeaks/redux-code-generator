@@ -89,12 +89,12 @@ describe('YAML settings validations', () => {
   const actionKeys = [{
     name: 'reducer',
     settings: {
-      name: 'Valid Name',
+      name: 'Valid Name'
     }
   }, {
     name: 'name',
     settings: {
-      reducer: {},
+      reducer: {}
     }
   }];
 
@@ -104,7 +104,7 @@ describe('YAML settings validations', () => {
     });
   });
 
-  it(`validates action settings`, () => {
+  it('validates action settings', () => {
     const actionSettings = {
       name: 'Valid Name',
       reducer: {}
